@@ -1,24 +1,27 @@
-import { Component } from 'react';
+
 import { FiEdit3, FiTrash } from 'react-icons/fi';
 
 import { Container } from './styles';
 import api from '../../services/api';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function Food(props) {
   const [isAvailable, setIsAvailable] = useState(props.food.available)
-  const [food, setFood] = useState(props.food)
+  const food = props.food
 
   async function toggleAvailable() {
+      await api.put(`/foods/${food.id}`, {
+        ...food,
+        available: !isAvailable,
+      });
     setIsAvailable(!isAvailable);
     }
   
   
-function setEditingFood() {
-
-  props.handleEditFood(props.food);
+function setEditingFood(food_param) {
+  props.handleEditFood(food_param);
 }
-console.log("IS AVAILABLE -->", props.food)
+
   return (
     <Container available={isAvailable}>
       <header>
@@ -36,7 +39,7 @@ console.log("IS AVAILABLE -->", props.food)
           <button
             type="button"
             className="icon"
-            onClick={() => props.handleEditFood(props.food)}
+            onClick={() => setEditingFood(props.food)}
             data-testid={`edit-food-${food.id}`}
           >
             <FiEdit3 size={20} />
