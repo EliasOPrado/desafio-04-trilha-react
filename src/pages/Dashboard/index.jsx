@@ -22,7 +22,6 @@ export default function Dashboard(props) {
         setFoods(response.data);
       } catch (e) {
         console.error(e);
-        console.log("BATEU AQUI!!")
       }
     };
     fetchData();
@@ -35,8 +34,6 @@ export default function Dashboard(props) {
         ...food,
         available: true,
       });
-
-      console.log("FOODS -->", food)
 
       setFoods([...foods, response.data]);
     } catch (err) {
