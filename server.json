@@ -18,11 +18,27 @@
     },
     {
       "id": 3,
-      "name": "A la Camaron",
+      "name": "A la Camaron 2",
       "description": "Macarrão com vegetais de primeira linha e camarão dos 7 mares. 123",
       "price": "25.90",
-      "available": false,
+      "available": true,
       "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food3.png"
+    },
+    {
+      "available": true,
+      "id": 4,
+      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food1.png",
+      "name": "changed",
+      "price": "20",
+      "description": "best dish whatsoever"
+    },
+    {
+      "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food1.png",
+      "name": "Check post",
+      "price": "30",
+      "description": "some description",
+      "available": true,
+      "id": 5
     }
   ]
 }
