@@ -5,9 +5,26 @@ import { Container } from './styles';
 import api from '../../services/api';
 import { useState } from 'react';
 
-export default function Food(props) {
-  const [isAvailable, setIsAvailable] = useState(props.food.available)
-  const food = props.food
+// api food types.
+interface FoodAPI {
+  id: number;
+  name: string;
+  image: string;
+  price: string;
+  description: string;
+  available: boolean;
+}
+
+interface Props {
+  food: FoodAPI;
+  handleDelete: (id: number) => {};
+  handleEditFood: (food: FoodAPI) => void;
+}
+
+export default function Food({food, handleDelete, handleEditFood}: Props) {
+  const { available } = food;
+  const [isAvailable, setIsAvailable] = useState(available)
+
 
   async function toggleAvailable() {
       await api.put(`/foods/${food.id}`, {
@@ -18,8 +35,8 @@ export default function Food(props) {
     }
   
   
-function setEditingFood(food_param) {
-  props.handleEditFood(food_param);
+function setEditingFood() {
+  handleEditFood(food);
 }
 
   return (
@@ -39,7 +56,7 @@ function setEditingFood(food_param) {
           <button
             type="button"
             className="icon"
-            onClick={() => setEditingFood(props.food)}
+            onClick={setEditingFood}
             data-testid={`edit-food-${food.id}`}
           >
             <FiEdit3 size={20} />
@@ -48,7 +65,7 @@ function setEditingFood(food_param) {
           <button
             type="button"
             className="icon"
-            onClick={() => props.handleDelete(props.food.id)}
+            onClick={() => handleDelete(food.id)}
             data-testid={`remove-food-${food.id}`}
           >
             <FiTrash size={20} />
