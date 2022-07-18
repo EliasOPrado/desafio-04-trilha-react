@@ -7,11 +7,28 @@ import ModalAddFood from '../../components/ModalAddFood';
 import ModalEditFood from '../../components/ModalEditFood';
 import { FoodsContainer } from './styles';
 
-export default function Dashboard(props) {
-  const [foods, setFoods] = useState([])
-  const [editingFood, setEditingFood] = useState({})
-  const [modalOpen, setModalOpen] = useState(false)
-  const [editModalOpen, setEditModalOpen] = useState(false)
+interface FoodType {
+  id: number;
+  name: string;
+  image: string;
+  price: string;
+  description: string;
+  available: boolean;
+}
+
+interface AddFood {
+  img: string;
+  name: string;
+  price: string;
+  description: string;
+}
+
+export default function Dashboard() {
+  const [foods, setFoods] = useState<FoodType[]>([]);
+  const [editingFood, setEditingFood] = useState<FoodType>({} as FoodType);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+
 
   useEffect(() => {
     // get data from api.
@@ -27,7 +44,7 @@ export default function Dashboard(props) {
     fetchData();
   }, [])
 
-  async function handleAddFood(food){
+  async function handleAddFood(food: AddFood){
 
     try {
       const response = await api.post('/foods', {
@@ -41,7 +58,7 @@ export default function Dashboard(props) {
     }
   }
 
-  async function handleUpdateFood(food){
+  async function handleUpdateFood(food: AddFood){
     // const { foods, editingFood } = this.state;
 
     try {
@@ -60,7 +77,7 @@ export default function Dashboard(props) {
     }
   }
 
-  async function handleDeleteFood(id){
+  async function handleDeleteFood(id: number){
     await api.delete(`/foods/${id}`);
 
     const foodsFiltered = foods.filter(food => food.id !== id);
@@ -73,14 +90,12 @@ export default function Dashboard(props) {
   }
 
   function toggleEditModal(){
-    // const { editModalOpen } = this.state;
     setEditModalOpen(!editModalOpen);
   }
 
-  function handleEditFood(food){
+  function handleEditFood(food: FoodType){
     setEditingFood(food)
     setEditModalOpen(true);
-    // this.setState({ editingFood: food, editModalOpen: true });
   }
 
   return (
@@ -100,7 +115,7 @@ export default function Dashboard(props) {
 
       <FoodsContainer data-testid="foods-list">
         {foods &&
-          foods.map(food => (
+          foods.map((food) => (
             <Food
               key={food.id}
               food={food}

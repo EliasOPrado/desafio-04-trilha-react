@@ -16,10 +16,10 @@ interface AddFood {
 interface Food {
   id: number;
   name: string;
-  description: string;
-  price: number;
-  available: boolean;
   image: string;
+  price: string;
+  description: string;
+  available: boolean;
 }
 
 interface ModalEditFoodProps {

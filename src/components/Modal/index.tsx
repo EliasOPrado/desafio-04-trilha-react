@@ -11,10 +11,6 @@ export default function Modal({isOpen, setIsOpen, children}: ModalProps){
 
   const [modalStatus, setModalStatus] = useState(isOpen)
 
-
-  console.log(typeof isOpen);
-
-
   useEffect(() => {
     setModalStatus(isOpen);
   }, [isOpen]);
